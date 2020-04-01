@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import React  from 'react';
 
-class UserEdit extends Component {
-    // constructor(props) {
-    //     super(props);
-    // this.state = {  }
-    // }
+class UserEdit extends React.Component {
     render() {
         return (
             <div>用户编辑页面</div>

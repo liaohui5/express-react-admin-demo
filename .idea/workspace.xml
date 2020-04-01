@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d070bd76-52c3-4550-89bc-833e439158d2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/UserEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/UserEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/UserList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/UserList.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,6 +88,7 @@
       <updated>1585484615118</updated>
       <workItem from="1585484617391" duration="1236000" />
       <workItem from="1585485896282" duration="3807000" />
+      <workItem from="1585770227687" duration="1071000" />
     </task>
     <servers />
   </component>
