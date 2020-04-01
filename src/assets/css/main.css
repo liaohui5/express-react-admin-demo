@@ -1,0 +1,27 @@
+.main-container {
+  height: 100vh;
+}
+
+.main-header {
+  box-sizing: border-box;
+  padding: 0 20px !important;
+  background: #fff;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.welcome {
+  color: #fff;
+  padding: 0 20px;
+}
+
+.main-content {
+  padding: 20px;
+}
+
+.logo {
+  line-height: 60px;
+  font-size: 24px;
+  text-align: center;
+  color: #fff;
+}

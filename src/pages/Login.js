@@ -24,6 +24,7 @@ class Login extends React.Component {
       return;
     }
 
+    this.props.history.replace('/');
   }
 
   render() {
