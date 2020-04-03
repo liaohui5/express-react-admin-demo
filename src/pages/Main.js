@@ -1,6 +1,6 @@
 import React from "react";
 import {Layout, Menu} from 'antd';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import UserList from "./User/UserList";
 import UserEdit from "./User/UserEdit";
 import '../assets/css/main.css';
@@ -16,6 +16,7 @@ class Main extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <Layout className="main-container">
         <Header className="header">
@@ -36,11 +37,11 @@ class Main extends React.Component {
 
           </Sider>
           <Layout>
-            {/* 中间内容 */}
             <Content className="content-container">
               <Switch>
                 <Route path='/user/list' component={UserList}/>
-                <Route path='/user/edit' component={UserEdit}/>
+                <Route path='/user/edit' component={UserEdit} />
+                <Redirect to='/user/list'/>
               </Switch>
             </Content>
           </Layout>

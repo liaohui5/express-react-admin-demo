@@ -11,7 +11,7 @@ export default [
     {
         path: '/',
         component: Main,
-        exact: true,
+        strict: true,
         children: [
             {
                 path: '/user/list',
@@ -21,14 +21,14 @@ export default [
                 path: '/user/edit',
                 component: UserEdit,
             },
-            {
-                path: '/article/list',
-                component: UserList,
-            },
-            {
-                path: '/article/edit',
-                component: UserEdit,
-            },
+            // {
+            //     path: '/article/list',
+            //     component: UserList,
+            // },
+            // {
+            //     path: '/article/edit',
+            //     component: UserEdit,
+            // },
         ]
     },
 ];
