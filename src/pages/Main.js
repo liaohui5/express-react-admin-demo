@@ -3,6 +3,11 @@ import {Layout, Menu} from 'antd';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import UserList from "./User/UserList";
 import UserEdit from "./User/UserEdit";
+import ArticleEdit from "./Article/ArticleEdit";
+import ArticleList from "./Article/ArticleList";
+import { connect } from 'react-redux';
+import { getUsersAction } from '../store/actions';
+
 import '../assets/css/main.css';
 
 const {SubMenu} = Menu;
@@ -11,12 +16,21 @@ const {Header, Content, Sider} = Layout;
 
 class Main extends React.Component {
 
+  // 检查登录
+  componentDidMount() {
+    if (!this.props.user && !localStorage.getItem('token')) {
+      this.props.history.replace('/login');
+      return;
+    }
+    // 如果登录, 获取最新的用户列表
+    this.props.getUsers();
+  }
+
   toPage = (e) => {
     this.props.history.replace(e.key);
   };
 
   render() {
-    console.log(this.props);
     return (
       <Layout className="main-container">
         <Header className="header">
@@ -38,9 +52,12 @@ class Main extends React.Component {
           </Sider>
           <Layout>
             <Content className="content-container">
+              {/* 子路由 */}
               <Switch>
                 <Route path='/user/list' component={UserList}/>
-                <Route path='/user/edit' component={UserEdit} />
+                <Route path='/user/edit/:id?' component={UserEdit} />
+                <Route path='/article/list' component={ArticleList} />
+                <Route path='/article/edit' component={ArticleEdit} />
                 <Redirect to='/user/list'/>
               </Switch>
             </Content>
@@ -51,4 +68,18 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUsers() {
+      return dispatch(getUsersAction());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

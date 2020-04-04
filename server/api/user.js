@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../modules/User');
+const authMiddleware = require('../middleware/auth.js');
 
 // 登录
 router.post('/api/login', async (req, res) => {
@@ -15,19 +16,23 @@ router.post('/api/login', async (req, res) => {
         return res.json({code: 1, data: null});
     }
 
-    // 2. 校验密码, 对比hash(123456: $2b$10$zvz96nKnpz6QrGrNFOZ0lOhrN52C9Itp5pJ7eow7PcOjgfjEC9Toy)
+    // 2. 校验密码
     const isValid = require("bcrypt").compareSync(password, user.password);
     if (!isValid) {
         return res.json({code: 1, data: null});
     }
 
     const { id } = user;
-    const token = jwt.sign({id}, 'react_admin_secret');
-    res.json({code: 0, data: token});
+    const token = jwt.sign({ id }, req.app.get('jwt_secret'));
+    const data = {
+        token,
+        email: user.email
+    }
+    res.json({code: 0, data});
 });
 
 // 用户列表
-router.get('/api/users', async(req, res) => {
+router.get('/api/users', authMiddleware,  async(req, res) => {
     const users = await User.findAll();
     return res.json({
         code: 0,
@@ -36,13 +41,13 @@ router.get('/api/users', async(req, res) => {
 });
 
 // 新增用户
-router.post('/api/user', (req, res) => {
+router.post('/api/user',authMiddleware,  (req, res) => {
     const { email, password } = req.body;
     User.create({ email, password }).then(() => res.json({ code: 0 }));
 });
 
 // 修改用户
-router.patch('/api/user/:id', async (req, res) => {
+router.patch('/api/user/:id',authMiddleware, async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findByPk(req.params.id);
     if (!user) {
@@ -58,6 +63,10 @@ router.patch('/api/user/:id', async (req, res) => {
 });
 
 // 删除用户
-router.delete('/api/user/:id', (req, res) => User.destroy({where: {id: req.params.id}}).then(() => res.json({code: 0})));
+router.delete('/api/user', authMiddleware, (req, res) => {
+    User.destroy({ where: { id: req.body.id } }).then(() => {
+        return res.json({ code: 0 });
+    });
+});
 
 module.exports = router;

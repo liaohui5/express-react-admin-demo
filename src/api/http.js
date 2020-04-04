@@ -1,12 +1,16 @@
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://localhost:5555';
+axios.defaults.baseURL = 'http://localhost:2333';
 
 // 全局请求拦截器
-axios.interceptors.request.use(requestConfig => {
+axios.interceptors.request.use(config => {
   console.log('========== 请求 ==========');
-  console.log(requestConfig);
-  return requestConfig;
+  console.log(config);
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.token = token;
+  }
+  return config;
 }, err => {
   console.warn('========== 请求错误 ==========');
   console.log(err);
@@ -18,7 +22,7 @@ axios.interceptors.request.use(requestConfig => {
 axios.interceptors.response.use(response => {
   console.log('========== 响应 ==========');
   console.log(response);
-  return response;
+  return response.data;
 }, err => {
   console.warn('========== 响应错误 ==========');
   console.log(err);

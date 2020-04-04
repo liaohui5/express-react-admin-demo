@@ -1,18 +1,19 @@
 import React from 'react';
 import {Button, Card, Form, Input, message} from 'antd';
+import { connect } from 'react-redux';
+import { loginAction } from '../store/actions';
 import '../assets/css/login.css';
 
 class Login extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: 'admin@qq.com',
+      password: '123456',
     };
   }
 
-  login() {
+  async login() {
     const {email, password} = this.state;
     const emailReg = /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
     if (!emailReg.test(email)) {
@@ -23,7 +24,7 @@ class Login extends React.Component {
       message.error('密码至少6位字符');
       return;
     }
-
+    await this.props.login(email, password);
     this.props.history.replace('/');
   }
 
@@ -36,6 +37,7 @@ class Login extends React.Component {
             <Form.Item>
               <Input
                 type='input'
+                value={this.state.email}
                 onChange={(e) => this.setState({email: e.target.value})}
                 size='large' placeholder='输入邮箱'/>
             </Form.Item>
@@ -44,6 +46,7 @@ class Login extends React.Component {
             <Form.Item>
               <Input
                 type='password'
+                value={this.state.password}
                 onChange={(e) => this.setState({password: e.target.value})}
                 size="large" placeholder="密码"/>
             </Form.Item>
@@ -59,5 +62,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (email, password) => dispatch(loginAction(email, password))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(Login);
 
