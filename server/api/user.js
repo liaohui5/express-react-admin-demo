@@ -38,13 +38,13 @@ router.get('/api/users', async(req, res) => {
 // 新增用户
 router.post('/api/user', (req, res) => {
     const { email, password } = req.body;
-    User.create({ email, password }).then(() => res.json({code: 0}));
+    User.create({ email, password }).then(() => res.json({ code: 0 }));
 });
 
 // 修改用户
 router.patch('/api/user/:id', async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findByPk(req.id);
+    const user = await User.findByPk(req.params.id);
     if (!user) {
         return res.json({code: 1, data: null});
     }
@@ -58,6 +58,6 @@ router.patch('/api/user/:id', async (req, res) => {
 });
 
 // 删除用户
-router.delete('/api/user/:id', (req, res) => User.destroy({where: {id: req.id}}).then(() => res.json({code: 0})));
+router.delete('/api/user/:id', (req, res) => User.destroy({where: {id: req.params.id}}).then(() => res.json({code: 0})));
 
 module.exports = router;

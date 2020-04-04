@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use('/api', api);
+app.use('/', api);
 
 const port = process.env.PORT || '2333';
 app.listen(port, () => console.log(`server is running on ${port}`));

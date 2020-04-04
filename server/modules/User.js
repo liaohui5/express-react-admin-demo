@@ -7,13 +7,14 @@ module.exports = db.define('User', {
         autoIncrement: true,
         primaryKey: true,
     },
-    username: {
+    email: {
         type: sequelize.STRING
     },
     password: {
         type: sequelize.STRING,
         set(val) {
-            return require('bcrypt').hashSync(val, 10);
+            const password = require('bcrypt').hashSync(val, 10);
+            this.setDataValue('password', password);
         }
     }
 }, {
