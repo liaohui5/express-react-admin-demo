@@ -1,68 +1,77 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## react-admin-demo
 
-## Available Scripts
+- 一个简单的 react 全家桶的练习项目
 
-In the project directory, you can run:
+## 主要实现功能
 
-### `yarn start`
+- 路由设计
+- 登录
+- 用户增删改查
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 主要技术栈
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+> 客户端
 
-### `yarn test`
+- react
+- react-router-dom
+- redux
+- react-redux
+- redux-thunk
+- antd
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> 服务端
 
-### `yarn build`
+- nodejs
+- express
+- sequelize
+- mysql
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 如何启动
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- 客户端
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm start # or yarn start
+```
 
-### `yarn eject`
+- 服务端
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. 创建一个 `react_admin` 的数据库
+2. 创建一个 `admins` 表 结构看 `MySQl 数据`
+3. 修改数据库连接参数 `/server/modules/db.js`
+4. 启动服务端
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run server
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## MySQl 数据
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sql
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-## Learn More
+-- ----------------------------
+-- Table structure for admins
+-- ----------------------------
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE `admins`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
+  `email` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '管理员邮箱',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '管理员密码',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-- ----------------------------
+-- Records of admins
+-- ----------------------------
+INSERT INTO `admins` VALUES (1, 'admin@qq.com', '$2b$10$VimKqN8dmDycFxw5zKhb/ejL0yP8HC/PzKAUHafplcRtB4syUAZKW');
+INSERT INTO `admins` VALUES (2, 'abc@qq.com', '$2b$10$z465SD2dtTz4syh9JKt2SOA8vegnJ9TLe1WqH76s.DJsuzMHZLqfO');
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+SET FOREIGN_KEY_CHECKS = 1;
+```
 
-### Code Splitting
+## 账号密码
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- 账号: admin@qq.com
+- 密码: 123456

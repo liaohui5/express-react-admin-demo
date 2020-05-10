@@ -39,6 +39,7 @@ class UserEdit extends React.Component {
           });
         })
         .catch((err) => {
+          console.log(err);
           message.error("用户信息获取失败");
         });
     }
@@ -121,7 +122,7 @@ class UserEdit extends React.Component {
           />
         </Form.Item>
 
-        {/* 登录按钮 */}
+        {/* 按钮 */}
         <Form.Item>
           <Button onClick={() => btnFunc()} type="primary">
             {btnText}

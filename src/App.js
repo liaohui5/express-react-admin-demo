@@ -1,7 +1,7 @@
 import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Main from "./pages/Main";
-import Login from "./pages/Login";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Main from "./pages/Main.jsx";
+import Login from "./pages/Login.jsx";
 
 class App extends React.Component {
   render() {
@@ -16,12 +16,12 @@ class App extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/login" component={Login} />
+          {/* <Route path="/" component={Main} /> */}
           <Route path="/" render={(props) => <Main {...props} />} />
         </Switch>
       </BrowserRouter>
     );
   }
 }
-
 
 export default App;

@@ -1,11 +1,12 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import { Route, Switch, Redirect } from "react-router-dom";
-import UserList from "./User/UserList";
-import UserEdit from "./User/UserEdit";
+import UserList from "./User/UserList.jsx";
+import UserEdit from "./User/UserEdit.jsx";
 import ArticleEdit from "./Article/ArticleEdit";
 import ArticleList from "./Article/ArticleList";
 import { connect } from "react-redux";
+import { logoutAction } from "../store/actions";
 import "../assets/css/main.css";
 
 const { SubMenu } = Menu;
@@ -14,14 +15,21 @@ const { Header, Content, Sider } = Layout;
 class Main extends React.Component {
   // 检查登录
   componentDidMount() {
-    if (!this.props.user && !localStorage.getItem("token")) {
+    if (!this.props.authUser && !localStorage.getItem("token")) {
       this.props.history.replace("/login");
       return;
     }
   }
 
+  // 跳页面
   toPage = (e) => {
     this.props.history.replace(e.key);
+  };
+
+  // 退出登录
+  logout = () => {
+    this.props.logout();
+    this.props.history.push("/login");
   };
 
   render() {
@@ -29,7 +37,7 @@ class Main extends React.Component {
     const childRoutes = (
       <Switch>
         <Route path="/user/list" component={UserList} />
-        <Route path="/user/edit/:id?" component={UserEdit} />
+        <Route strict exact path="/user/edit/:id?" component={UserEdit} />
         <Route path="/article/list" component={ArticleList} />
         <Route path="/article/edit" component={ArticleEdit} />
         <Redirect to="/user/list" />
@@ -41,6 +49,9 @@ class Main extends React.Component {
       <Layout className="main-container">
         <Header className="header">
           <div className="logo">React Admin</div>
+          <ul className="right-btns">
+            <li onClick={() => this.logout()}>注销登录</li>
+          </ul>
         </Header>
         <Layout>
           <Sider width={250} className="site-layout-background">
@@ -70,5 +81,12 @@ class Main extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  authUser: state.authUser,
+});
 
-export default connect()(Main);
+const mapActionToProps = (dispatch) => ({
+  logout: () => dispatch(logoutAction),
+});
+
+export default connect(mapStateToProps, mapActionToProps)(Main);

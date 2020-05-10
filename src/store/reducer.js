@@ -1,31 +1,37 @@
-import * as types from './types';
+import * as types from "./types";
 
 const defaultState = {
-    user: null,
-    users: [],
+  authUser: null,
+  users: [],
 };
 
 const reducer = (state = defaultState, action) => {
-    const newState = JSON.parse(JSON.stringify(state));
-    const { type, payload } = action;
-    
-    // 登录
-    if (type === types.LOGIN) {
-        localStorage.setItem('token', payload.token);
-        newState.user = payload;
-    }
+  const newState = JSON.parse(JSON.stringify(state));
+  const { type, payload } = action;
 
-    // 获取用户列表
-    if (type === types.GET_USERS) {
-        newState.users = payload;
-    }
+  // 登录
+  if (type === types.LOGIN) {
+    localStorage.setItem("token", payload.token);
+    newState.authUser = payload;
+  }
 
-    // 删除用户
-    if (type === types.DELETE_USER) {
-        newState.users = newState.users.filter(item => item.id !== payload);
-    }
+  // 注销登录
+  if (type === types.LOGOUT) {
+    localStorage.removeItem("token");
+    newState.authUser = null;
+  }
 
-    return newState;
+  // 获取用户列表
+  if (type === types.GET_USERS) {
+    newState.users = payload;
+  }
+
+  // 删除用户
+  if (type === types.DELETE_USER) {
+    newState.users = newState.users.filter((item) => item.id !== payload);
+  }
+
+  return newState;
 };
 
 export default reducer;

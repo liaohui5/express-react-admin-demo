@@ -1,14 +1,17 @@
 // 用户登录
-export const LOGIN = 'login';
+export const LOGIN = "login";
+
+// 注销登录
+export const LOGOUT = "logout";
 
 // 创建用户
-export const CREATE_USER = 'create_user';
+export const CREATE_USER = "create_user";
 
 // 删除用户
-export const DELETE_USER = 'delete_user';
+export const DELETE_USER = "delete_user";
 
 // 用户列表
-export const GET_USERS = 'list_user';
+export const GET_USERS = "list_user";
 
 // 修改用户信息
-export const UPDATE_USER = 'update_user';
+export const UPDATE_USER = "update_user";

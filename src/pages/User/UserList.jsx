@@ -1,15 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Table, Button } from "antd";
+import { Table, Button, message } from "antd";
 import { removeUserAction, getUsersAction } from "../../store/actions";
 
 class UserList extends React.Component {
-  
   // 用户用户信息
   componentDidMount() {
     this.props.getUsers();
   }
+
+  // 删除用户
+  removeUser = (id) => {
+    this.props
+      .removeUser(id)
+      .then(() => message.success("删除成功"))
+      .catch((err) => {
+        console.log(err);
+        message.error("删除失败");
+      });
+  };
 
   render() {
     const columns = [
@@ -39,7 +49,7 @@ class UserList extends React.Component {
         dataIndex: "id",
         key: "id",
         render: (id) => (
-          <Button type="danger" onClick={() => this.props.removeUser(id)}>
+          <Button type="danger" onClick={() => this.removeUser(id)}>
             删除
           </Button>
         ),
