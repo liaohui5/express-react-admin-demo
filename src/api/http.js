@@ -21,7 +21,7 @@ axios.interceptors.request.use(config => {
 // 全局响应拦截器
 axios.interceptors.response.use(response => {
   console.log('========== 响应 ==========');
-  console.log(response);
+  console.log(response.data);
   return response.data;
 }, err => {
   console.warn('========== 响应错误 ==========');
