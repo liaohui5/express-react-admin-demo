@@ -2,18 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Table, Button, message } from "antd";
-import { removeUserAction, getUsersAction } from "../../store/actions";
+import * as userActions from "../../store/actions/users";
+import { bindActionCreators } from "redux";
 
 class UserList extends React.Component {
   // 用户用户信息
   componentDidMount() {
-    this.props.getUsers();
+    this.props.userActions.getUsersAction();
   }
 
   // 删除用户
   removeUser = (id) => {
-    this.props
-      .removeUser(id)
+    this.props.userActions
+      .removeUserAction(id)
       .then(() => message.success("删除成功"))
       .catch((err) => {
         console.log(err);
@@ -64,12 +65,11 @@ class UserList extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.users,
+  users: state.userReducer.users,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeUser: (id) => dispatch(removeUserAction(id)),
-  getUsers: () => dispatch(getUsersAction()),
+  userActions: bindActionCreators(userActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserList);

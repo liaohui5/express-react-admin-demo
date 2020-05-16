@@ -1,18 +1,5 @@
-import * as types from "./types.js";
-import * as api from "../api/index";
-
-// 登录
-export const loginAction = (email, password) => async (dispatch) => {
-  const { code, data } = await api.login({ email, password });
-  if (code === 0) {
-    dispatch({ type: types.LOGIN, payload: data });
-    return Promise.resolve();
-  }
-  return Promise.reject(code);
-};
-
-// 注销登录
-export const logoutAction = { type: types.LOGOUT, payload: null };
+import * as api from "../../api";
+import * as types from "../types";
 
 // 用户列表
 export const getUsersAction = () => async (dispatch) => {
@@ -21,7 +8,7 @@ export const getUsersAction = () => async (dispatch) => {
     console.log("用户数据获取失败");
     return;
   }
-  return dispatch({ type: types.GET_USERS, payload: data });
+  return dispatch({ type: types.GET_USERS, users: data });
 };
 
 // 删除用户(id 为1的不能删)
@@ -31,7 +18,7 @@ export const removeUserAction = (id) => async (dispatch) => {
   }
   const { code } = await api.removeUser(id);
   if (code === 0) {
-    dispatch({ type: types.DELETE_USER, payload: id });
+    dispatch({ type: types.DELETE_USER, id });
     return Promise.resolve();
   } else {
     return Promise.reject(code);

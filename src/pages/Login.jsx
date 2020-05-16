@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, Form, Input, message } from "antd";
 import { connect } from "react-redux";
-import { loginAction } from "../store/actions";
+import { loginAction } from "../store/actions/login";
 import "../assets/css/login.css";
 
 class Login extends React.Component {

@@ -6,7 +6,7 @@ import UserEdit from "./User/UserEdit.jsx";
 import ArticleEdit from "./Article/ArticleEdit";
 import ArticleList from "./Article/ArticleList";
 import { connect } from "react-redux";
-import { logoutAction } from "../store/actions";
+import { logoutAction } from "../store/actions/login";
 import "../assets/css/main.css";
 
 const { SubMenu } = Menu;

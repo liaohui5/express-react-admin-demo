@@ -1,11 +1,8 @@
 import React from "react";
 import { Button, Form, Input, message } from "antd";
 import { connect } from "react-redux";
-import {
-  createUserAction,
-  updateUserAction,
-  getUserDetailAction,
-} from "../../store/actions";
+import * as userActions from "../../store/actions/users";
+import { bindActionCreators } from "redux";
 
 class UserEdit extends React.Component {
   constructor(props) {
@@ -23,10 +20,11 @@ class UserEdit extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     const { id } = this.props.match.params;
     if (id) {
-      this.props
-        .getUserDetail(id)
+      this.props.userActions
+        .getUserDetailAction(id)
         .then((res) => {
           this.setState({
             editMode: true,
@@ -64,8 +62,8 @@ class UserEdit extends React.Component {
   createUser = () => {
     if (this.check()) {
       const { email, password } = this.state;
-      this.props
-        .createUser({ email, password })
+      this.props.userActions
+        .createUserAction({ email, password })
         .then(() => {
           message.success("用户创建成功");
           this.props.history.push("/user/list");
@@ -81,8 +79,8 @@ class UserEdit extends React.Component {
   updateUser = () => {
     if (this.check()) {
       const { email, password, id } = this.state;
-      this.props
-        .updateUser({ id, user: { email, password } })
+      this.props.userActions
+        .updateUserAction({ id, user: { email, password } })
         .then(() => {
           message.success("用户信息修改成功");
           this.props.history.push("/user/list");
@@ -134,13 +132,11 @@ class UserEdit extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.users,
+  users: state.userReducer.users,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (user) => dispatch(createUserAction(user)),
-  updateUser: (data) => dispatch(updateUserAction(data)),
-  getUserDetail: (id) => dispatch(getUserDetailAction(id)),
+  userActions: bindActionCreators(userActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserEdit);
